@@ -1,6 +1,5 @@
 package fh.technikum.soaptransactionservice.config;
 
-import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletPath;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -18,30 +17,25 @@ import org.springframework.xml.xsd.XsdSchema;
 public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean
-    public ServletRegistrationBean<MessageDispatcherServlet> dispatcherServlet(ApplicationContext ctx) {
+    public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext context) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
-        servlet.setApplicationContext(ctx);
+        servlet.setApplicationContext(context);
         servlet.setTransformWsdlLocations(true);
         return new ServletRegistrationBean<>(servlet, "/ws/*");
     }
 
     @Bean(name = "transactions")
-    public DefaultWsdl11Definition defaultWsdl(XsdSchema schema) {
-        DefaultWsdl11Definition wsdl = new DefaultWsdl11Definition();
-        wsdl.setPortTypeName("TransactionPort");
-        wsdl.setLocationUri("/ws");
-        wsdl.setTargetNamespace("http://fhtechnikum-wien.at/transactions");
-        wsdl.setSchema(schema);
-        return wsdl;
+    public DefaultWsdl11Definition defaultWsdlDefinition(XsdSchema transactionsSchema) {
+        DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
+        definition.setPortTypeName("TransactionPort");
+        definition.setLocationUri("/ws");
+        definition.setTargetNamespace("http://fhtechnikum-wien.at/transactions");
+        definition.setSchema(transactionsSchema);
+        return definition;
     }
 
     @Bean
-    public DispatcherServletPath dispatcherServletPath() {
-        return () -> "/";
-    }
-
-    @Bean
-    public XsdSchema transactionSchema() {
+    public XsdSchema transactionsSchema() {
         return new SimpleXsdSchema(new ClassPathResource("xsd/transactions.xsd"));
     }
 }

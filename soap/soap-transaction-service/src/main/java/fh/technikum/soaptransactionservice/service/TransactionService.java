@@ -10,13 +10,13 @@ import java.time.Instant;
 @Service
 public class TransactionService {
 
-    private final TransactionRepository repo;
+    private final TransactionRepository transactionRepository;
 
-    public TransactionService(TransactionRepository repo) {
-        this.repo = repo;
+    public TransactionService(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
     }
 
     public void saveTransaction(Integer id, String name, Instant timestamp, BigDecimal amount) {
-        repo.save(new Transaction(id, name, timestamp, amount));
+        transactionRepository.save(new Transaction(id, name, timestamp, amount));
     }
 }

@@ -1,32 +1,39 @@
 package fh.technikum.soaptransactionservice.controller;
 
-import fh.technikum.soaptransactionservice.dto.StoreTransactionRequestDto;
-import fh.technikum.soaptransactionservice.dto.StoreTransactionResponseDto;
+import fh.technikum.soaptransactionservice.generated.StoreTransactionRequest;
+import fh.technikum.soaptransactionservice.generated.StoreTransactionResponse;
 import fh.technikum.soaptransactionservice.service.TransactionService;
+import jakarta.xml.bind.JAXBElement;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import java.time.Instant;
-
+@Component
+@RequiredArgsConstructor
 @Endpoint
 public class TransactionEndpoint {
-
     private static final String NAMESPACE_URI = "http://fhtechnikum-wien.at/transactions";
 
     private final TransactionService transactionService;
 
-    public TransactionEndpoint(TransactionService transactionService) {
-        this.transactionService = transactionService;
-    }
-
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "StoreTransactionRequest")
     @ResponsePayload
-    public StoreTransactionResponseDto storeTransaction(@RequestPayload StoreTransactionRequestDto request) {
-        transactionService.saveTransaction(request.getId(), request.getName(), Instant.parse(request.getTimestamp()), request.getAmount());
-        StoreTransactionResponseDto response = new StoreTransactionResponseDto();
+    public JAXBElement<StoreTransactionResponse> storeTransaction(@RequestPayload JAXBElement<StoreTransactionRequest> request) {
+        transactionService.saveTransaction(
+                request.getValue().getId(),
+                request.getValue().getName(),
+                request.getValue().getTimestamp().toGregorianCalendar().toInstant(),
+                request.getValue().getAmount()
+        );
+        StoreTransactionResponse response = new StoreTransactionResponse();
         response.setStatus("SAVED");
-        return response;
+        return new JAXBElement<>(
+                new javax.xml.namespace.QName(NAMESPACE_URI, "StoreTransactionResponse"),
+                StoreTransactionResponse.class,
+                response
+        );
     }
 }

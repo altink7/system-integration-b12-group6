@@ -1,1 +1,3 @@
 /soap-transaction-service/target
+/soap-transaction-service/src/main/java/fh/technikum/soaptransactionservice/generated/
+/soap-transaction-service/src/main/java/META-INF/JAXB/

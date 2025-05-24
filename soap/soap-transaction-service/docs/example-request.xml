@@ -1,12 +1,12 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:tns="http://fhtechnikum-wien.at/transactions">
+                  xmlns:tran="http://fhtechnikum-wien.at/transactions">
     <soapenv:Header/>
     <soapenv:Body>
-        <tns:StoreTransactionRequest>
-            <tns:id>1</tns:id>
-            <tns:name>Test Transaction</tns:name>
-            <tns:timestamp>2023-10-01T12:00:00Z</tns:timestamp>
-            <tns:amount>100.50</tns:amount>
-        </tns:StoreTransactionRequest>
+        <tran:StoreTransactionRequest xmlns:tran="http://fhtechnikum-wien.at/transactions">
+            <id>1</id>
+            <name>max</name>
+            <timestamp>2025-01-01T12:00:00Z</timestamp>
+            <amount>100.50</amount>
+        </tran:StoreTransactionRequest>
     </soapenv:Body>
 </soapenv:Envelope>
