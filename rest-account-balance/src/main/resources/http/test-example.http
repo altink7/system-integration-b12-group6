@@ -1,0 +1,3 @@
+### Get account balance at a specific timestamp
+GET http://localhost:8100/api/v1/account-balance?id=1&timestamp=2025-05-10T13:00:00Z
+Accept: application/json

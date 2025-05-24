@@ -75,7 +75,6 @@
             <version>1.6.3</version>
         </dependency>
 
-
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -89,6 +88,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -109,7 +115,7 @@
                                 <source>${project.basedir}/src/main/resources/xsd/transactions.xsd</source>
                             </sources>
                             <packageName>fh.technikum.soaptransactionservice.generated</packageName>
-                            <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+                            <outputDirectory>src/main/java</outputDirectory>
                             <clearOutputDir>false</clearOutputDir>
                         </configuration>
                     </execution>

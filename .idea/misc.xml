@@ -9,6 +9,7 @@
       <list>
         <option value="$PROJECT_DIR$/soap/soap-transaction-service/pom.xml" />
         <option value="$PROJECT_DIR$/soap-transaction-service/pom.xml" />
+        <option value="$PROJECT_DIR$/rest-account-balance/pom.xml" />
       </list>
     </option>
   </component>

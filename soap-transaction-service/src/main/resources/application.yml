@@ -3,6 +3,7 @@ spring:
     url: jdbc:postgresql://localhost:5452/transaction_service_db
     username: root
     password: root
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
