@@ -5,7 +5,7 @@
         <tran:StoreTransactionRequest xmlns:tran="http://fhtechnikum-wien.at/transactions">
             <id>1</id>
             <name>max</name>
-            <timestamp>2025-01-01T12:00:00Z</timestamp>
+            <timestamp>2025-05-25T10:00:00Z</timestamp>
             <amount>100.50</amount>
         </tran:StoreTransactionRequest>
     </soapenv:Body>

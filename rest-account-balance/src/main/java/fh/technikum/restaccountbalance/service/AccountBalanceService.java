@@ -16,7 +16,7 @@ public class AccountBalanceService {
     private final TransactionRepository transactionRepository;
 
     public AccountBalanceResponse calculateBalance(int id, Instant timestamp) {
-        var transactions = transactionRepository.findByAccountIdAndTimestampLessThanEqual(id, timestamp);
+        var transactions = transactionRepository.findByAccountIdAndTimestampLessThanEqual(id, getTimestamp(timestamp));
 
         BigDecimal total = transactions.stream()
                 .map(Transaction::getAmount)
@@ -27,5 +27,9 @@ public class AccountBalanceService {
                 .orElse("Unknown");
 
         return new AccountBalanceResponse(id, name, total);
+    }
+
+    private Instant getTimestamp(Instant timestamp) {
+        return timestamp != null ? timestamp : Instant.now();
     }
 }

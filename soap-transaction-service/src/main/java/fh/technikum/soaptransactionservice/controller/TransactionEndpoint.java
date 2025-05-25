@@ -11,6 +11,9 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.time.Instant;
+
 @Component
 @RequiredArgsConstructor
 @Endpoint
@@ -25,7 +28,7 @@ public class TransactionEndpoint {
         transactionService.saveTransaction(
                 request.getValue().getId(),
                 request.getValue().getName(),
-                request.getValue().getTimestamp().toGregorianCalendar().toInstant(),
+                getInstant(request),
                 request.getValue().getAmount()
         );
         StoreTransactionResponse response = new StoreTransactionResponse();
@@ -35,5 +38,14 @@ public class TransactionEndpoint {
                 StoreTransactionResponse.class,
                 response
         );
+    }
+
+    private Instant getInstant(JAXBElement<StoreTransactionRequest> request) {
+        XMLGregorianCalendar xmlGregorianCalendar = request.getValue().getTimestamp();
+        if (xmlGregorianCalendar == null) {
+            return Instant.now();
+        }
+
+        return xmlGregorianCalendar.toGregorianCalendar().toInstant();
     }
 }
