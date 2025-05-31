@@ -16,6 +16,10 @@ public class AccountBalanceService {
     private final TransactionRepository transactionRepository;
 
     public AccountBalanceResponse calculateBalance(int id, Instant timestamp) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("Account ID must be a positive integer.");
+        }
+
         var transactions = transactionRepository.findByAccountIdAndTimestampLessThanEqual(id, getTimestamp(timestamp));
 
         BigDecimal total = transactions.stream()

@@ -14,6 +14,10 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
 
     public void saveTransaction(Integer id, String name, Instant timestamp, BigDecimal amount) {
-        transactionRepository.save(new Transaction(id, name, timestamp, amount));
+        if (id != null && name != null && amount != null) {
+            transactionRepository.save(new Transaction(id, name, timestamp, amount));
+        } else {
+            throw new IllegalArgumentException("All fields (id, name, amount) must be provided.");
+        }
     }
 }
