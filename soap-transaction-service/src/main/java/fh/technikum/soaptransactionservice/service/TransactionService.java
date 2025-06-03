@@ -2,6 +2,7 @@ package fh.technikum.soaptransactionservice.service;
 
 import fh.technikum.soaptransactionservice.model.Transaction;
 import fh.technikum.soaptransactionservice.repository.TransactionRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class TransactionService {
     private final TransactionRepository transactionRepository;

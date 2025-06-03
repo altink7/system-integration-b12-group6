@@ -3,6 +3,7 @@ package fh.technikum.restaccountbalance.service;
 import fh.technikum.restaccountbalance.dto.AccountBalanceResponse;
 import fh.technikum.restaccountbalance.model.Transaction;
 import fh.technikum.restaccountbalance.repository.TransactionRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AccountBalanceService {
 
