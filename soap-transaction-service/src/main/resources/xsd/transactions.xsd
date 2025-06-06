@@ -23,4 +23,32 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:complexType name="TransactionType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="accountId" type="xs:int"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="timestamp" type="xs:dateTime"/>
+            <xs:element name="amount" type="xs:decimal"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="GetTransactionsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="accountId" type="xs:int"/>
+                <xs:element name="from" type="xs:dateTime" minOccurs="0"/>
+                <xs:element name="to" type="xs:dateTime" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetTransactionsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="transactions" type="TransactionType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
 </xs:schema>

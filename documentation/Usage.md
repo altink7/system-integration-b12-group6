@@ -66,6 +66,33 @@ docker compose up -d
 }
 ```
 
+    - To test the **List All Transactions for an Account** endpoint, use:  
+      `http://localhost:8100/api/v1/transactions?accountId=1`  
+      This returns all transactions for account 1.
+
+    - Optional: You can also filter by date range:  
+      `http://localhost:8100/api/v1/transactions?accountId=1&from=2024-01-01T00:00:00Z&to=2024-12-31T23:59:59Z`
+
+    - Example response:
+```json
+[
+  {
+    "id": 10,
+    "accountId": 1,
+    "name": "max",
+    "timestamp": "2024-06-01T12:00:00Z",
+    "amount": -100.50
+  },
+  {
+    "id": 11,
+    "accountId": 1,
+    "name": "max",
+    "timestamp": "2024-06-03T09:15:00Z",
+    "amount": 200.00
+  }
+]
+```
+
 7. **Stop the Services**:
     - To stop the services, you can run `docker-compose down` in the directory containing the `docker-compose.yaml`
       file.
