@@ -70,9 +70,9 @@ const fetchTransactions = async () => {
   try {
     const params = {accountId: id.value || 0}
     if (timestamp.value) {
-      const fromDate = new Date();
-      fromDate.setFullYear(fromDate.getFullYear() - 1);
       const toDate = new Date(timestamp.value)
+      const fromDate = new Date(toDate);
+      fromDate.setDate(fromDate.getDate() - 1);
       params.from = fromDate.toISOString()
       params.to = toDate.toISOString()
     }
