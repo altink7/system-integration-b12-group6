@@ -66,15 +66,15 @@ const fetchAccountBalance = async () => {
   }
 }
 
+const date = ref('');
 const fetchTransactions = async () => {
   try {
     const params = {accountId: id.value || 0}
-    if (timestamp.value) {
-      const toDate = new Date(timestamp.value)
-      const fromDate = new Date(toDate);
-      fromDate.setDate(fromDate.getDate() - 1);
-      params.from = fromDate.toISOString()
-      params.to = toDate.toISOString()
+    if (date.value) {
+      const fromDate = new Date(date.value + 'T00:00:00');
+      const toDate = new Date(date.value + 'T23:59:59');
+      params.from = fromDate.toISOString();
+      params.to = toDate.toISOString();
     }
 
     const response = await axios.get('http://localhost:8100/api/v1/transactions', {
@@ -111,8 +111,8 @@ const balancesAtTx = computed(() => {
       </label>
 
       <label>
-        Timestamp (optional):
-        <input type="datetime-local" v-model="timestamp"/>
+        Date (optional):
+        <input type="date" v-model="date" />
       </label>
 
       <button @click="fetchAccountBalance">Fetch Balance</button>
@@ -133,7 +133,6 @@ const balancesAtTx = computed(() => {
         <thead>
         <tr>
           <th>ID</th>
-          <th>Type</th>
           <th>Amount</th>
           <th>Balance</th>
           <th>Timestamp</th>
@@ -142,7 +141,6 @@ const balancesAtTx = computed(() => {
         <tbody>
         <tr v-for="(tx, index) in transactions" :key="tx.id">
           <td>{{ tx.id }}</td>
-          <td>{{ tx.type }}</td>
           <td :class="tx.amount >= 0 ? 'amount-positive' : 'amount-negative'">
             {{ tx.amount >= 0 ? '+' : '' }}{{ tx.amount }} €
           </td>
