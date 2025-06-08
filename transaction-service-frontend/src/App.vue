@@ -1,7 +1,7 @@
 <script setup>
-import {ref} from 'vue'
 import axios from 'axios'
 import {useCurrencyInput} from 'vue-currency-input'
+import { ref, computed, nextTick } from 'vue'
 
 const id = ref(1)
 const timestamp = ref('')
@@ -51,6 +51,7 @@ const fetchAccountBalance = async () => {
       return
     }
 
+    await nextTick()
     setValue(response.data.balance || 0)
     await fetchTransactions()
   } catch (error) {
@@ -83,6 +84,18 @@ const fetchTransactions = async () => {
     showToastMessage('Failed to fetch transactions.')
   }
 }
+
+const balancesAtTx = computed(() => {
+  if (!accountBalance.value || !transactions.value.length) return [];
+  let runningBalance = accountBalance.value.balance;
+  const out = [];
+  for (let i = 0; i < transactions.value.length; i++) {
+    out[i] = runningBalance;
+    runningBalance -= transactions.value[i].amount;
+  }
+  return out;
+});
+
 </script>
 
 <template>
@@ -132,14 +145,7 @@ const fetchTransactions = async () => {
             {{ tx.amount >= 0 ? '+' : '' }}{{ tx.amount }} €
           </td>
           <td>
-
-            {{
-              (accountBalance ? accountBalance.balance : 0 -
-                      transactions
-                          .slice(index + 1)
-                          .reduce((acc, t) => acc + t.amount, 0)
-              ).toFixed(2)
-            }} €
+            {{ balancesAtTx[index] }} €
           </td>
           <td>{{ new Date(tx.timestamp).toLocaleString() }}</td>
         </tr>
