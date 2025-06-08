@@ -16,7 +16,11 @@ public class AccountBalanceController {
     private final AccountBalanceService accountBalanceService;
 
     @GetMapping
-    public AccountBalanceResponse getAccountBalance(@RequestParam("id") int id, @RequestParam(value = "timestamp", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant timestamp) {
+    public AccountBalanceResponse getAccountBalance(
+            @RequestParam("id") int id,
+            @RequestParam(value = "timestamp", required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant timestamp
+    ) {
         return accountBalanceService.calculateBalance(id, timestamp);
     }
 }
