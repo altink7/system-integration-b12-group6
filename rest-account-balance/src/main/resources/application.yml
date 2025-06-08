@@ -1,8 +1,6 @@
 server:
   port: 8100
 spring:
-  jackson:
-    time-zone: Europe/Vienna
   datasource:
     url: jdbc:postgresql://localhost:5452/transaction_service_db
     username: root
