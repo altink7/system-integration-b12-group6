@@ -48,6 +48,7 @@ const fetchAccountBalance = async () => {
     if (!response.data || response.data.name === 'Unknown') {
       showToastMessage('User not found.')
       accountBalance.value = null
+      transactions.value = []
       return
     }
 
@@ -56,6 +57,7 @@ const fetchAccountBalance = async () => {
     await fetchTransactions()
   } catch (error) {
     accountBalance.value = null
+    transactions.value = []
     if (error.response?.status === 404 || error.response?.data?.message?.includes('not found')) {
       showToastMessage('User not found.')
     } else {
