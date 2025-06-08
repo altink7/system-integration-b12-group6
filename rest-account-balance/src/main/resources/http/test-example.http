@@ -3,7 +3,7 @@ GET http://localhost:8100/api/v1/account-balance?id=1
 Accept: application/json
 
 ### Get account balance at a specific timestamp
-GET http://localhost:8100/api/v1/account-balance?id=1&timestamp=2025-05-25T11:00:00Z
+GET http://localhost:8100/api/v1/account-balance?id=1&timestamp=2025-05-31T14:20:00Z
 Accept: application/json
 
 ### List all transactions for an account
