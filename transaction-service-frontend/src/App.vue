@@ -1,7 +1,7 @@
 <script setup>
 import axios from 'axios'
 import {useCurrencyInput} from 'vue-currency-input'
-import { ref, computed, nextTick } from 'vue'
+import {computed, nextTick, ref} from 'vue'
 
 const id = ref(1)
 const timestamp = ref('')
@@ -144,10 +144,10 @@ const balancesAtTx = computed(() => {
           <td>{{ tx.id }}</td>
           <td>{{ tx.type }}</td>
           <td :class="tx.amount >= 0 ? 'amount-positive' : 'amount-negative'">
-            {{ tx.amount >= 0 ? '+' : '' }}{{ tx.amount }} €
+            {{ tx.amount >= 0 ? '+' : '' }}{{ tx.amount.toFixed(2) }} €
           </td>
           <td>
-            {{ balancesAtTx[index] }} €
+            {{ balancesAtTx[index].toFixed(2) }} €
           </td>
           <td>{{ new Date(tx.timestamp).toLocaleString() }}</td>
         </tr>
